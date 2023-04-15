@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sandbox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="/send_url.js"></script>
+    <link rel="icon" href="/images/playground.png">
+  </head>
+  <style>
+
+        .header {
+        position: fixed; /* 固定位置 */
+        top: 0; /* 上端に固定 */
+        right: 0; /* 右端に固定 */
+        display: flex; /* アイコンを縦並びにする */
+        flex-direction: column; /* アイコンを縦並びにする */
+        justify-content: flex-end; /* アイコンを下寄せにする */
+        width: 50px; /* 横幅を50pxにする */
+        height: 100%; /* 高さを100%にする */
+        background-color: #f5f5f5; /* 背景色をグレーにする */
+        border-right: 1px solid #e0e0e0; /* 右線を付ける */
+        z-index: 9999; /* 最前面に表示する */
+      }
+
+      .icon {
+        display: flex; /* アイコン内の要素を横並びにする */
+        justify-content: center; /* アイコン内の要素を中央寄せにする */
+        align-items: center; /* アイコン内の要素を縦方向に中央寄せにする */
+        width: 50px; /* アイコンの横幅を50pxにする */
+        height: 50px; /* アイコンの高さを50pxにする */
+        cursor: pointer; /* カーソルをポインターにする */
+      }
+
+      .icon img {
+        width: 24px; /* 画像の横幅を24pxにする */
+        height: 24px; /* 画像の高さを24pxにする */
+      }
+
+      .icon:hover {
+        background-color: #e0e0e0; /* ホバー時の背景色を明るくする */
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .poster {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 20px 0;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .poster h1 {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .form {
+        display: flex;
+        align-items: center;
+      }
+
+      .form textarea {
+        flex: 1;
+        margin-right: 10px;
+        padding: 10px;
+        border: none;
+        resize: none;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .form button {
+        padding: 10px 20px;
+        background-color: #1da1f2;
+        color: #fff;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .timeline {
+        border-left: 1px solid #ccc;
+        padding: 20px;
+      }
+
+      .tweet {
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .tweet img {
+      border-radius: 50%;
+      margin-right: 10px;
+      }
+
+      .tweet-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      }
+
+      .tweet-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      }
+
+      .tweet-header h2 {
+      font-size: 16px;
+      font-weight: bold;
+      margin-right: 5px;
+      }
+
+      .tweet-header span {
+      font-size: 14px;
+      color: #7f8c8d;
+      }
+
+      .tweet-time {
+      margin-left: auto;
+      }
+
+      .tweet-body p {
+      font-size: 16px;
+      line-height: 1.5;
+      }
+
+      .tweet {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      padding: 20px;
+      }
+
+  </style>
+  <body>
+
+    <div class="header">
+        <div class="icon">
+          <a href="/home"><img src="images/sandbox.png"></a>
+        </div>
+        <div class="icon">
+          <img src="プロフィールアイコンの画像URL">
+        </div>
+        <div class="icon">
+          <img src="https://cdn-icons-png.flaticon.com/512/2929/2929984.png">
+        </div>
+        <div class="icon">
+          <img src="https://cdn-icons-png.flaticon.com/512/25/25394.png">
+        </div>
+    </div>
+
+    <div class="container">
+      <div class="poster">
+        <h1>POST ON</h1>
+        <select name="post-type" id="post-type">
+            <option value="text">テキスト</option>
+            <option value="image">画像</option>
+            <option value="video">動画</option>
+        </select>
+          
+          <div id="text-input" class="input-box">
+            <label for="post-text">投稿内容</label>
+            <form method="post" action="/post">
+                <textarea name="postContent" id="post-text" placeholder="テキストを追加"></textarea>
+                <input type="submit" value="📮"></input>
+            </form>
+          </div>
+      </div>  
+      
+      <% posts.forEach((post) => { %>
+        <div class="timeline">
+          <div class="tweet">
+            <img src="https://via.placeholder.com/50x50" alt="プロフィール画像">
+            <div class="tweet-content">
+              <div class="tweet-header">
+                <h2>ユーザー名</h2>
+                <span><%= post.user_id %></span>
+                <p class="tweet-time"><strong>投稿時間:</strong> <%= post.created_at.toLocaleString() %></p>
+              </div>
+              <div class="tweet-body">
+                <p><%= post.content %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </body>
+</html>
